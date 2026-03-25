@@ -72,14 +72,14 @@ namespace Pre.Streams.TextStorer.Core.Services
             return dataProtector.Protect(toEncrypt);
         }
 
-        public string ReadFromFile(string pathToFile)
+        public async Task<string> ReadFromFile(string pathToFile)
         {
             //create a streamReader
             try
             {
                 using (StreamReader streamReader = new StreamReader(pathToFile))
                 {
-                    return streamReader.ReadToEnd();
+                    return await streamReader.ReadToEndAsync();
                 }
             }catch(IOException iOexception)
             {
@@ -88,7 +88,7 @@ namespace Pre.Streams.TextStorer.Core.Services
             }
         }
 
-        public bool WriteToFile(string text,string pathToFile)
+        public async Task<bool> WriteToFile(string text,string pathToFile)
         {
             //create a streamWriter
             try
@@ -96,7 +96,7 @@ namespace Pre.Streams.TextStorer.Core.Services
                 using (StreamWriter streamWriter = new StreamWriter(pathToFile))
                 {
                     //write to file
-                    streamWriter.Write(text);
+                    await streamWriter.WriteAsync(text);
                 }
                 return true;
             }

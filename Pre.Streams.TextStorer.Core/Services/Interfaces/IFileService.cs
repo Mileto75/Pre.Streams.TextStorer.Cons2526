@@ -12,8 +12,8 @@ namespace Pre.Streams.TextStorer.Core.Services.Interfaces
     {
         string Encrypt(string toEncrypt);
         string DeCrypt(string toDecrypt);
-        bool WriteToFile(string text,string pathToFile);
+        Task<bool> WriteToFile(string text,string pathToFile);
         string CreateFile(string fileName);
-        string ReadFromFile(string pathToFile);
+        Task<string> ReadFromFile(string pathToFile);
     }
 }
