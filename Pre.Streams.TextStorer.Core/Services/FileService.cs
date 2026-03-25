@@ -74,9 +74,23 @@ namespace Pre.Streams.TextStorer.Core.Services
             return dataProtector.Protect(toEncrypt);
         }
 
-        public bool WriteToFile(string text)
+        public bool WriteToFile(string text,string pathToFile)
         {
-            throw new NotImplementedException();
+            //create a streamWriter
+            try
+            {
+                using (StreamWriter streamWriter = new StreamWriter(pathToFile))
+                {
+                    //write to file
+                    streamWriter.Write(text);
+                }
+                return true;
+            }
+            catch(IOException iOexception)
+            {
+                Console.WriteLine(iOexception.Message);
+                return false;
+            }
         }
     }
 }

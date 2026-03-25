@@ -13,6 +13,6 @@ namespace Pre.Streams.TextStorer.Core.Services.Interfaces
         string Encrypt(string toEncrypt);
         string DeCrypt(string toDecrypt);
         bool WriteToFile(string text);
-        string CreateFile(string fileName);
+        string CreateFile(string fileName,string pathToFile);
     }
 }
