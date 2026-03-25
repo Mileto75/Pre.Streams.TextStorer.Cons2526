@@ -16,13 +16,41 @@ namespace Pre.Streams.TextStorer.Core.Services
         public string CreateFile(string fileName)
         {
             //build path to user Desktop or Documents folder
+            string pathToDesktop = Environment
+                .GetFolderPath(Environment.SpecialFolder.Desktop);
+            
+            string pathToSecretDirectory =
+                Path.Combine(pathToDesktop,"Pre","Secret");
             //check if exists
-            //If not: create
+            try
+            {
+                if (!Directory.Exists(pathToSecretDirectory))
+                {
+                    //If not: create
+                    Directory.CreateDirectory(pathToSecretDirectory);
+                }
+            }catch(IOException iOexception)
+            {
+                Console.WriteLine(iOexception.Message);
+            }
+
             //build path to file
-            //check if exists
-            // if not: create
+            string pathToFile = Path.Combine(pathToSecretDirectory, fileName);
+            try
+            {
+                //check if exists
+                if(!File.Exists(pathToFile))
+                {
+                    // if not: create
+                    File.Create(pathToFile);
+                }
+            }
+            catch (IOException iOexception)
+            {
+                Console.WriteLine(iOexception.Message);
+            }
             //return pathToFile
-            throw new NotImplementedException();
+            return pathToFile;
         }
 
         public string DeCrypt(string toDecrypt)
