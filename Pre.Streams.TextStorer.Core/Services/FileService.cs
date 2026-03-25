@@ -97,6 +97,7 @@ namespace Pre.Streams.TextStorer.Core.Services
                 {
                     //write to file
                     await streamWriter.WriteAsync(text);
+                    await Task.Delay(1000);
                 }
                 return true;
             }

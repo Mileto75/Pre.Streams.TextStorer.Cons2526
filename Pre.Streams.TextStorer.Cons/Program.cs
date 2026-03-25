@@ -4,7 +4,7 @@ namespace Pre.Streams.TextStorer.Cons
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             //declare FileService instance
             FileService fileService = new FileService();
@@ -17,16 +17,13 @@ namespace Pre.Streams.TextStorer.Cons
             Console.WriteLine("Creating file...");
             string pathToFile = fileService.CreateFile(fileName);
             Console.WriteLine("Writing secret to file...");
-            if(fileService.WriteToFile(secret,pathToFile))
+            var task = fileService.WriteToFile(secret, pathToFile);
+            while(!task.IsCompleted)
             {
-                Console.WriteLine("Secret stored!");
-            }
-            else
-            {
-                Console.WriteLine("Something went wrong!");
+                Console.Write("+");
             }
             Console.WriteLine("Decrypt the secret");
-            secret = fileService.ReadFromFile(pathToFile);
+            secret = await fileService.ReadFromFile(pathToFile);
             Console.WriteLine("Your terrible secret is:");
             Console.WriteLine(fileService.DeCrypt(secret));
         }
