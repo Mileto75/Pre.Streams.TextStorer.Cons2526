@@ -6,12 +6,28 @@ namespace Pre.Streams.TextStorer.Cons
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("My secret...");
+            //declare FileService instance
             FileService fileService = new FileService();
-            var secret = fileService.Encrypt("I love the macarena!");
-            Console.WriteLine("Encrypted");
-            Console.WriteLine(secret);
-            Console.WriteLine("Decrypted:");
+
+            Console.WriteLine("Give me your secret...");
+            string input = Console.ReadLine(); 
+            var secret = fileService.Encrypt(input);
+            Console.WriteLine("Give me a filename:");
+            string fileName = Console.ReadLine();
+            Console.WriteLine("Creating file...");
+            string pathToFile = fileService.CreateFile(fileName);
+            Console.WriteLine("Writing secret to file...");
+            if(fileService.WriteToFile(secret,pathToFile))
+            {
+                Console.WriteLine("Secret stored!");
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong!");
+            }
+            Console.WriteLine("Decrypt the secret");
+            secret = fileService.ReadFromFile(pathToFile);
+            Console.WriteLine("Your terrible secret is:");
             Console.WriteLine(fileService.DeCrypt(secret));
         }
     }

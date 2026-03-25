@@ -11,8 +11,6 @@ namespace Pre.Streams.TextStorer.Core.Services
 {
     public class FileService : IFileService
     {
-        private FileStream _fileStream;
-
         public string CreateFile(string fileName)
         {
             //build path to user Desktop or Documents folder
@@ -42,7 +40,7 @@ namespace Pre.Streams.TextStorer.Core.Services
                 if(!File.Exists(pathToFile))
                 {
                     // if not: create
-                    File.Create(pathToFile);
+                    File.Create(pathToFile).Dispose();
                 }
             }
             catch (IOException iOexception)
@@ -72,6 +70,22 @@ namespace Pre.Streams.TextStorer.Core.Services
             //create dataprotector with purpose string
             var dataProtector = datastore.CreateProtector("Pre.Store.Secret");
             return dataProtector.Protect(toEncrypt);
+        }
+
+        public string ReadFromFile(string pathToFile)
+        {
+            //create a streamReader
+            try
+            {
+                using (StreamReader streamReader = new StreamReader(pathToFile))
+                {
+                    return streamReader.ReadToEnd();
+                }
+            }catch(IOException iOexception)
+            {
+                Console.WriteLine(iOexception.Message);
+                return "Error"; //dirty pattern
+            }
         }
 
         public bool WriteToFile(string text,string pathToFile)
