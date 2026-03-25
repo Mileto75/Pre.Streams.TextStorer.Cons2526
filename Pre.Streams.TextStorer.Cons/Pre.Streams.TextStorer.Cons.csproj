@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Pre.Streams.TextStorer.Core\Pre.Streams.TextStorer.Core.csproj" />
+  </ItemGroup>
+
 </Project>

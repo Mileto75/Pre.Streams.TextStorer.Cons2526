@@ -5,6 +5,7 @@ using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Pre.Streams.TextStorer.Core.Services.Interfaces
 {
     public interface IFileService
